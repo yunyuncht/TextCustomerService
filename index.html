@@ -77,9 +77,89 @@
       .embed-shell {
         border: 1px dashed var(--line);
         border-radius: 16px;
-        padding: 14px;
+        padding: 22px;
         min-height: 460px;
         background: rgba(255, 255, 255, 0.67);
+        display: grid;
+        align-items: center;
+      }
+
+      .launcher {
+        max-width: 540px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(22, 127, 107, 0.1);
+        color: var(--accent);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .status::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .launcher h2 {
+        margin: 18px 0 10px;
+        font-size: clamp(1.2rem, 3vw, 1.7rem);
+      }
+
+      .launcher p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .actions {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 22px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(22, 127, 107, 0.22);
+      }
+
+      .btn-secondary {
+        background: rgba(31, 42, 42, 0.08);
+        color: var(--ink);
+      }
+
+      .runtime-note {
+        margin-top: 18px;
+        min-height: 24px;
+        font-size: 0.92rem;
+        color: var(--muted);
       }
 
       .tip {
@@ -116,6 +196,14 @@
           min-height: 520px;
           padding: 10px;
         }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -131,15 +219,55 @@
 
       <section class="embed-area">
         <div class="embed-shell">
-          <script
-            src="https://app.pathors.com/embed.js"
-            data-project-id="a7900646-87ee-445b-baf8-a07d1e0e41a4"
-          ></script>
+          <div class="launcher">
+            <div class="status">Customer Service Ready</div>
+            <h2>Open the chat in a separate window</h2>
+            <p>
+              The provider blocks loading this chat inside an iframe on GitHub Pages,
+              so this page launches the conversation in a popup or a new tab instead.
+            </p>
+            <div class="actions">
+              <button class="btn btn-primary" id="open-chat" type="button">
+                Open Support Chat
+              </button>
+              <a
+                class="btn btn-secondary"
+                id="open-chat-tab"
+                href="https://app.pathors.com/embed/chat/a7900646-87ee-445b-baf8-a07d1e0e41a4?primaryColor=%23167f6b"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open in New Tab
+              </a>
+            </div>
+            <p class="runtime-note" id="runtime-note" aria-live="polite"></p>
+          </div>
         </div>
         <p class="tip">
-          If the chat panel does not appear, please check browser network access and script-blocking settings.
+          Popup blocked by the browser? Use the secondary button to open the chat in a normal tab.
         </p>
       </section>
     </main>
+    <script>
+      const chatUrl = "https://app.pathors.com/embed/chat/a7900646-87ee-445b-baf8-a07d1e0e41a4?primaryColor=%23167f6b";
+      const openChatButton = document.getElementById("open-chat");
+      const runtimeNote = document.getElementById("runtime-note");
+
+      openChatButton?.addEventListener("click", () => {
+        const popup = window.open(
+          chatUrl,
+          "text-customer-service-chat",
+          "popup=yes,width=420,height=760,resizable=yes,scrollbars=yes"
+        );
+
+        if (popup) {
+          runtimeNote.textContent = "Chat opened in a separate window.";
+          popup.focus();
+          return;
+        }
+
+        runtimeNote.textContent = "The browser blocked the popup. Use 'Open in New Tab' instead.";
+      });
+    </script>
   </body>
 </html>

@@ -345,6 +345,14 @@
         opacity: 0.9;
       }
 
+      /* Hide Pathors branding */
+      [src*="pathors.com"] ~ * [class*="logo"],
+      [src*="pathors.com"] ~ * [class*="header"],
+      [src*="pathors.com"] ~ * [class*="powered"],
+      iframe[src*="pathors"] {
+        display: none !important;
+      }
+
       @keyframes rise-in {
         from {
           opacity: 0;
@@ -419,6 +427,10 @@
             您好！👋 歡迎來到我們的客服中心。請問有什麼我可以幫助您的嗎？
           </div>
         </div>
+        <script
+          src="https://app.pathors.com/embed.js"
+          data-project-id="a7900646-87ee-445b-baf8-a07d1e0e41a4"
+        ></script>
       </div>
       <div class="chat-input-area">
         <input

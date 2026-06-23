@@ -219,55 +219,12 @@
 
       <section class="embed-area">
         <div class="embed-shell">
-          <div class="launcher">
-            <div class="status">Customer Service Ready</div>
-            <h2>Open the chat in a separate window</h2>
-            <p>
-              The provider blocks loading this chat inside an iframe on GitHub Pages,
-              so this page launches the conversation in a popup or a new tab instead.
-            </p>
-            <div class="actions">
-              <button class="btn btn-primary" id="open-chat" type="button">
-                Open Support Chat
-              </button>
-              <a
-                class="btn btn-secondary"
-                id="open-chat-tab"
-                href="https://app.pathors.com/embed/chat/a7900646-87ee-445b-baf8-a07d1e0e41a4?primaryColor=%23167f6b"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open in New Tab
-              </a>
-            </div>
-            <p class="runtime-note" id="runtime-note" aria-live="polite"></p>
-          </div>
+            <script src="https://app.pathors.com/embed.js" data-project-id="a7900646-87ee-445b-baf8-a07d1e0e41a4"></script>
         </div>
         <p class="tip">
-          Popup blocked by the browser? Use the secondary button to open the chat in a normal tab.
+          If the chat panel does not appear, please check browser network access and script-blocking settings.
         </p>
       </section>
     </main>
-    <script>
-      const chatUrl = "https://app.pathors.com/embed/chat/a7900646-87ee-445b-baf8-a07d1e0e41a4?primaryColor=%23167f6b";
-      const openChatButton = document.getElementById("open-chat");
-      const runtimeNote = document.getElementById("runtime-note");
-
-      openChatButton?.addEventListener("click", () => {
-        const popup = window.open(
-          chatUrl,
-          "text-customer-service-chat",
-          "popup=yes,width=420,height=760,resizable=yes,scrollbars=yes"
-        );
-
-        if (popup) {
-          runtimeNote.textContent = "Chat opened in a separate window.";
-          popup.focus();
-          return;
-        }
-
-        runtimeNote.textContent = "The browser blocked the popup. Use 'Open in New Tab' instead.";
-      });
-    </script>
   </body>
 </html>
